@@ -23,9 +23,6 @@ jobs:
       - name: Crear credenciales GCP
         run: echo '${{ secrets.GCP_SA_KEY }}' > service_account.json
 
-      - name: Variables GCP
-        run: |
-          echo 'GOOGLE_CREDENTIALS_JSON=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}' >> $GITHUB_ENV
       - name: Variables Socrata
         run: |
           echo "SOCRATA_TOKEN=${{ vars.SOCRATA_TOKEN }}" >> $GITHUB_ENV
