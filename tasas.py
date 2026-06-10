@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from sodapy import Socrata
 from google.cloud import bigquery
+import json
 
 # Socrata
 client = Socrata(
