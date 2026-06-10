@@ -1,10 +1,10 @@
-name: Inspeccionar
-      run: |
-          echo "=== ¿Qué hay en la raíz del repositorio? ==="
-          ls -la
+- name: Inspeccionar carpetas e Instalar dependencias
+ run: |
+  echo "=== ¿Qué hay en la raíz del repositorio? ==="
+  ls -la
           
-          echo "=== ¿Qué hay dentro de .github/workflows/? ==="
-          ls -la .github/workflows/
+  echo "=== ¿Qué hay dentro de .github/workflows/? ==="
+  ls -la .github/workflows/
           
-          echo "=== Intentando instalar ==="
-          pip install -r .github/workflows/requirements.txt
+  echo "=== Intentando instalar ==="
+  pip install -r .github/workflows/requirements.txt
