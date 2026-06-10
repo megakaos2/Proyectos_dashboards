@@ -22,7 +22,11 @@ jobs:
 
       - name: Variables GCP
         run: |
-          echo 'GOOGLE_CREDENTIALS_JSON=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}' >> $GITHUB_ENV
+          if [ -z "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" ]; then
+            echo "SECRET VACIO O NO EXISTE"
+          else
+            echo "SECRET ENCONTRADO"
+          fi
 
       - name: Variables Socrata
         run: |
