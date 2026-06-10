@@ -25,13 +25,13 @@ jobs:
 
       - name: Variables GCP
         run: |
-          echo 'GOOGLE_CREDENTIALS_JSON=${{ secrets.GOOGLE_CREDENTIALS_JSON }}' >> $GITHUB_ENV
+          echo 'GOOGLE_CREDENTIALS_JSON=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}' >> $GITHUB_ENV
 
       - name: Variables Socrata
         run: |
-          echo "SOCRATA_TOKEN=${{ secrets.SOCRATA_TOKEN }}" >> $GITHUB_ENV
-          echo "SOCRATA_USER=${{ secrets.SOCRATA_USER }}" >> $GITHUB_ENV
-          echo "SOCRATA_PASSWORD=${{ secrets.SOCRATA_PASSWORD }}" >> $GITHUB_ENV
+          echo "SOCRATA_TOKEN=${{ vars.SOCRATA_TOKEN }}" >> $GITHUB_ENV
+          echo "SOCRATA_USER=${{ vars.SOCRATA_USER }}" >> $GITHUB_ENV
+          echo "SOCRATA_PASSWORD=${{ vars.SOCRATA_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Ejecutar proceso
         run: python tasas.py
