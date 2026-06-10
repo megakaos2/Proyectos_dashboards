@@ -30,4 +30,4 @@ jobs:
           echo "SOCRATA_USER=${{ vars.SOCRATA_USER }}" >> $GITHUB_ENV
           echo "SOCRATA_PASSWORD=${{ vars.SOCRATA_PASSWORD }}" >> $GITHUB_ENV
       - name: Ejecutar proceso
-        run: python tasas.py
+        run: python debug.py
