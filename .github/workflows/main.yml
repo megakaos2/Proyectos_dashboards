@@ -16,8 +16,9 @@ jobs:
         with:
           python-version: '3.14'
 
+      # AQUÍ ESTÁ EL CAMBIO: Le damos la ruta exacta dentro de la carpeta .github/workflows/
       - name: Instalar dependencias
-        run: pip install -r requirements.txt
+        run: pip install -r .github/workflows/requirements.txt
 
       - name: Crear credenciales GCP
         run: echo '${{ secrets.GCP_SA_KEY }}' > service_account.json
