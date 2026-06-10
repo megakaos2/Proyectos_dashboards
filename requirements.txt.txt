@@ -1,0 +1,6 @@
+pandas
+pyarrow
+sodapy
+google-cloud-bigquery
+google-auth
+db-dtypes

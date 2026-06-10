@@ -75,19 +75,16 @@ df_final = pd.merge(
 
 df_final.drop(columns=["cod_mpio"], inplace=True)
 
-# BigQuery
-client_bq = bigquery.Client()
+google_creds_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
 
-job_config = bigquery.LoadJobConfig(
-    write_disposition="WRITE_TRUNCATE"
-)
+info = json.loads(google_creds_json)
+credentials = service_account.Credentials.from_service_account_info(info)
+client = bigquery.Client(credentials=credentials, project=info.get("project_id"))
 
-job = client_bq.load_table_from_dataframe(
+job = client.load_table_from_dataframe(
     df_final,
-    "tu_proyecto.tu_dataset.tasas_vivienda",
-    job_config=job_config
+    "test-n8n-450317.Intereses.Créditos",
+    job_config=bigquery.LoadJobConfig(
+        write_disposition="WRITE_TRUNCATE"
+    )
 )
-
-job.result()
-
-print("Carga completada")
