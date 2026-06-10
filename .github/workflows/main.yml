@@ -34,4 +34,4 @@ jobs:
           echo "SOCRATA_PASSWORD=${{ secrets.SOCRATA_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Ejecutar proceso
-        run: python actualizar_tasas.py
+        run: python .github/tasas.py
