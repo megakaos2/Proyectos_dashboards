@@ -14,11 +14,11 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
+          python-version: '3.14.0'
 
       # AQUÍ ESTÁ EL CAMBIO: Le damos la ruta exacta dentro de la carpeta .github/workflows/
       - name: Instalar dependencias
-        run: pip install -r .github/workflows/requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Crear credenciales GCP
         run: echo '${{ secrets.GCP_SA_KEY }}' > service_account.json
@@ -34,4 +34,4 @@ jobs:
           echo "SOCRATA_PASSWORD=${{ secrets.SOCRATA_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Ejecutar proceso
-        run: python actualizar_tasas.py
+        run: python tasas.py
