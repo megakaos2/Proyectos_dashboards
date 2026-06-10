@@ -1,10 +1,37 @@
-- name: Inspeccionar carpetas e Instalar dependencias
- run: |
-  echo "=== ¿Qué hay en la raíz del repositorio? ==="
-  ls -la
-          
-  echo "=== ¿Qué hay dentro de .github/workflows/? ==="
-  ls -la .github/workflows/
-          
-  echo "=== Intentando instalar ==="
-  pip install -r .github/workflows/requirements.txt
+name: Actualizar Tasas Vivienda
+
+on:
+  schedule:
+    - cron: '0 5 * * 6'
+  workflow_dispatch:
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.0'
+
+      # AQUÍ ESTÁ EL CAMBIO: Le damos la ruta exacta dentro de la carpeta .github/workflows/
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Crear credenciales GCP
+        run: echo '${{ secrets.GCP_SA_KEY }}' > service_account.json
+
+      - name: Variables GCP
+        run: |
+          echo 'GOOGLE_CREDENTIALS_JSON=${{ secrets.GOOGLE_CREDENTIALS_JSON }}' >> $GITHUB_ENV
+
+      - name: Variables Socrata
+        run: |
+          echo "SOCRATA_TOKEN=${{ secrets.SOCRATA_TOKEN }}" >> $GITHUB_ENV
+          echo "SOCRATA_USER=${{ secrets.SOCRATA_USER }}" >> $GITHUB_ENV
+          echo "SOCRATA_PASSWORD=${{ secrets.SOCRATA_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Ejecutar proceso
+        run: python tasas.py
