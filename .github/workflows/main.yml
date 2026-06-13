@@ -23,17 +23,12 @@ jobs:
 
       - name: Variables GCP
         run: |
-          if [ -z "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" ]; then
-            echo "SECRET VACIO O NO EXISTE"
-          else
-            echo "SECRET ENCONTRADO"
-          fi
+          echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}' > service_account.json
 
       - name: Variables Socrata
         run: |
           echo "SOCRATA_TOKEN=${{ vars.SOCRATA_TOKEN }}" >> $GITHUB_ENV
           echo "SOCRATA_USER=${{ vars.SOCRATA_USER }}" >> $GITHUB_ENV
           echo "SOCRATA_PASSWORD=${{ vars.SOCRATA_PASSWORD }}" >> $GITHUB_ENV
-          echo "GOOGLE_CREDENTIALS_JSON=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
       - name: Ejecutar proceso
         run: python degub.py
