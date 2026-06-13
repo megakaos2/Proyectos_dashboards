@@ -2,6 +2,8 @@ import os
 import pandas as pd
 from sodapy import Socrata
 from google.cloud import bigquery
+from google.oauth2 import service_account
+from google.cloud import bigquery
 import json
 
 # Socrata
@@ -76,11 +78,15 @@ df_final = pd.merge(
 
 df_final.drop(columns=["cod_mpio"], inplace=True)
 
-google_creds_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
 
-info = json.loads(google_creds_json)
-credentials = service_account.Credentials.from_service_account_info(info)
-client = bigquery.Client(credentials=credentials, project=info.get("project_id"))
+credentials = service_account.Credentials.from_service_account_file(
+    "service_account.json"
+)
+
+client = bigquery.Client(
+    credentials=credentials,
+    project="test-n8n-450317"
+)
 
 job = client.load_table_from_dataframe(
     df_final,
